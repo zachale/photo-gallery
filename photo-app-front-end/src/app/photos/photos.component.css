@@ -2,11 +2,29 @@ img{
   
   object-fit: cover;
 }
+
+.photos{
+  display: grid;
+  grid-template-columns: 22vw 22vw 22vw;
+  grid-gap: 2vw;
+  justify-content: center;
 .photo{
   color: white;
   width: 22vw;
   height: 22vw; 
   border-radius: 2vw;
   background-position: center;
-  margin: 1vw;
+  position:relative;
+}
+
+.photo:hover{
+  border: 2% solid black;
+}
+
+.location{
+  font-size: 2vw;
+  position:absolute;
+  bottom: 0;
+  left:50%;
+  transform: translate(-50%);
 }

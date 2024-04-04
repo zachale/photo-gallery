@@ -1,12 +1,11 @@
 <h2>Your Photos</h2>
 
-<div class="photo" *ngFor="let photo of photos" (click)="onSelect(photo)" style="background-image: url('https://i.pinimg.com/564x/33/39/72/333972383552778819797d5c1466b68d.jpg')">
-  <div>
-    <h3>{{photo.location}}</h3>
-    <div><span>id: </span>{{photo.id}}</div>
+<div class="photos">
+  <div class="photo" *ngFor="let photo of photos" (click)="onSelect(photo)" 
+    style="background-image: url('https://i.pinimg.com/564x/33/39/72/333972383552778819797d5c1466b68d.jpg')"
+    [class.selected]="photo === selectedPhoto">
     <div>
-      <label for="dateUploaded">Date uploaded: </label>
-      <input id="dateUploaded" [(ngModel)]="photo.dateUploaded" placeholder="dateUploaded">
+      <h3 class="location">{{photo.location}}</h3>
     </div>
   </div>
 </div>
@@ -14,7 +13,11 @@
 
 <div *ngIf="selectedPhoto">
 
+  <img>
+
   <h2>{{selectedPhoto.location}}</h2>
   <div>id: {{selectedPhoto.id}}</div>
+  <label for="dateUploaded">Date uploaded: </label>
+  <input id="dateUploaded" [(ngModel)]="selectedPhoto.dateUploaded" placeholder="dateUploaded">
 
 </div>
