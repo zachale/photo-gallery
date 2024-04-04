@@ -1,0 +1,12 @@
+img{
+  
+  object-fit: cover;
+}
+.photo{
+  color: white;
+  width: 22vw;
+  height: 22vw; 
+  border-radius: 2vw;
+  background-position: center;
+  margin: 1vw;
+}
