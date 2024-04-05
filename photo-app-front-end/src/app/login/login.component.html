@@ -1,0 +1,23 @@
+
+<div class="container">
+
+  <form>
+    <label for="name">Username</label>
+    <input id="name" name="name" type="text" [formControl]="username"> 
+    <label for="password">Password</label>
+    <input id="passowrd" name="password" type="text" [formControl]="password">
+    <span>
+      <button *ngIf="isLoggingIn" type="submit" (click)="login()">login</button>
+      <p class="question" *ngIf="isLoggingIn" (click)="toggleSignup()">dont have an account yet?</p>
+    </span>
+    <span>
+      <button *ngIf="!isLoggingIn"  (click)="signup()" type="submit">signup</button>
+      <p class="question" *ngIf="!isLoggingIn" (click)="toggleLogin()">already have an account?</p>
+    </span>
+    
+  </form>
+
+<div *ngIf="response">{{response.message}}</div>
+
+  
+</div>

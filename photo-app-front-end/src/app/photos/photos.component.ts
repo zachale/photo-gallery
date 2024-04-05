@@ -1,5 +1,5 @@
 import { Component, NgModule } from '@angular/core';
-import { Photo } from '../photo';
+import { Photo } from '../interfaces/photo';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { PHOTOS } from '../mock-photos';
 import { NgFor, NgIf } from '@angular/common';

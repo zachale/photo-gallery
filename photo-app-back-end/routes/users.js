@@ -2,23 +2,31 @@ const express = require('express');
 const bcrypt = require("bcrypt");
 const User = require("../models/user")
 const router = express.Router();
+const cors = require("cors");
+
+router.use(cors());
+
 
 
 router.post("/login", async (req,res) => {
+
+  res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
 
   const user = await User.findOne({name:req.body.name});
   console.log(user);
 
   if(user == null){
-    return res.status(400).send("User does not exit");
+    return res.send({message:"User does not exit"});
   }
 
   try{
     if(await bcrypt.compare(req.body.password, user.password)){
-      res.send("success")
+      res.send({message:"success"})
+    } else {
+      res.send({message:"incorrect password"})
     }
   } catch {
-    res.status(500).send("Incorrect password")
+    res.status(500).send({message:"Something went wrong..."})
   }
   
   //validate credentials with the database (mongoose)

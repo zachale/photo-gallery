@@ -1,0 +1,29 @@
+input{
+  display: block;
+  width: 30vw;
+  margin:1vw;
+  padding:2%;
+  border-radius: 1vh;
+}
+
+button{
+  position:relative;
+  bottom: 0;
+  left:50%;
+  transform: translate(-50%);
+}
+.question{
+  color: black;
+  transition: color 0.3s ease-in-out;
+}
+.question:hover{
+  cursor: pointer;
+  color: blue;
+}
+
+.container{
+  width:100vw;
+  max-height: 20vh;
+  display: flex;
+  justify-content: center;
+}

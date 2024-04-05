@@ -1,4 +1,4 @@
-import { Photo } from "./photo";
+import { Photo } from "./interfaces/photo";
 
 export let PHOTOS: Photo[] = [
   {id:1, location: "Scotland", dateUploaded: 'April 23rd', path:"https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/dd/49/e2/the-mighty-ben-is-sleeping.jpg?w=500&h=500&s=1"},

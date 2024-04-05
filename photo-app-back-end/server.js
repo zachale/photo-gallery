@@ -1,5 +1,5 @@
 const express = require("express");
-const app = express();
+
 
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConn");
@@ -9,9 +9,12 @@ const photoRouter = require("./routes/photos");
 
 require('dotenv').config();
 
+const app = express();
+
 connectDB();
 
 app.use(express.json());
+
 const port = 3000;
 
 app.use('/photos', photoRouter);
