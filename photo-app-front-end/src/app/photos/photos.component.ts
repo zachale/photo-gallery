@@ -24,6 +24,16 @@ export class PhotosComponent {
     console.log("clicked!");
   }
 
+  returnFromPhoto(photo: Photo): void {
+    this.selectedPhoto = undefined;
+    console.log("clicked!");
+  }
+
+  canEdit?: Boolean;
+  toggleEdit(): void {
+    this.canEdit = !this.canEdit;
+  }
+
 
 
 }

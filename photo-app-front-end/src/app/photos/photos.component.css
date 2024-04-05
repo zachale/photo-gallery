@@ -8,6 +8,8 @@ img{
   grid-template-columns: 22vw 22vw 22vw;
   grid-gap: 2vw;
   justify-content: center;
+}
+
 .photo{
   color: white;
   width: 22vw;
@@ -27,4 +29,22 @@ img{
   bottom: 0;
   left:50%;
   transform: translate(-50%);
+}
+
+.selected-photo{
+  border-radius: 2vw;
+  max-width: 50vw;
+  max-height: 80vh;
+}
+
+.enlarged-photo{
+  display: flex;
+  justify-content: center;
+}
+
+.photo-info{
+  margin-left: 2vw;
+  border: solid black 2px;
+  border-radius: 2vw;
+  padding:1vw;
 }
