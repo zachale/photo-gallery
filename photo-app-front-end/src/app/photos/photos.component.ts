@@ -3,6 +3,7 @@ import { Photo } from '../interfaces/photo';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { PHOTOS } from '../mock-photos';
 import { NgFor, NgIf } from '@angular/common';
+import { PhotoInfoComponent } from '../photo-info/photo-info.component';
 
 @Component({
   selector: 'app-photos',
@@ -10,7 +11,8 @@ import { NgFor, NgIf } from '@angular/common';
   imports: [
     FormsModule,
     NgFor,
-    NgIf
+    NgIf,
+    PhotoInfoComponent
   ],
   templateUrl: './photos.component.html',
   styleUrl: './photos.component.css'
@@ -24,16 +26,10 @@ export class PhotosComponent {
     console.log("clicked!");
   }
 
-  returnFromPhoto(photo: Photo): void {
+  returnFromPhoto(event: Event){
+    console.log(event);
     this.selectedPhoto = undefined;
-    console.log("clicked!");
   }
-
-  canEdit?: Boolean;
-  toggleEdit(): void {
-    this.canEdit = !this.canEdit;
-  }
-
 
 
 }

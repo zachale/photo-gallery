@@ -1,0 +1,25 @@
+<div *ngIf="selectedPhoto" class="enlarged-photo">
+
+  <img class="selected-photo" src={{selectedPhoto.path}}>
+
+  <div class="photo-info">
+    <div class="photo-info-header">
+      <h2>{{inputPhoto.location}}</h2>
+      <h3>{{inputPhoto.dateUploaded}}</h3>
+      <div *ngIf="canEdit">
+        <input id="location" [(ngModel)]="inputPhoto.location" placeholder="location">
+        <input id="dateUploaded" [(ngModel)]="inputPhoto.dateUploaded" placeholder="dateUploaded">
+      </div>
+      
+    </div>
+    <div class="photo-info-footer">
+      <button (click)="returnFromPhoto(inputPhoto)">To Gallery</button>
+      <button *ngIf="canEdit" (click)="toggleEdit()">Save</button>
+      <button *ngIf="!canEdit" (click)="toggleEdit()">Edit</button>
+      <button (click)="returnFromPhoto(inputPhoto)">Delete</button>
+    </div>
+  </div>
+
+
+
+</div>

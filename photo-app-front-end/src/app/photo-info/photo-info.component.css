@@ -1,0 +1,18 @@
+
+.selected-photo{
+  border-radius: 2vw;
+  max-width: 50vw;
+  max-height: 80vh;
+}
+
+.enlarged-photo{
+  display: flex;
+  justify-content: center;
+}
+
+.photo-info{
+  margin-left: 2vw;
+  border: solid black 2px;
+  border-radius: 2vw;
+  padding:1vw;
+}

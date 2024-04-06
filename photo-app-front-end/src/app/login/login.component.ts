@@ -33,7 +33,6 @@ export class LoginComponent {
   }
 
   async login(){
-    console.log("logging in");
     const user: User = {"name":this.username.value, "password":this.password.value}
 
     this.httpService.validateUser(user).subscribe({
@@ -46,7 +45,16 @@ export class LoginComponent {
 
   signup(){
 
+    const user: User = {"name":this.username.value, "password":this.password.value}
+
+    this.httpService.signupUser(user).subscribe({
+        next: (response) => {this.response = response as LoginResponse},
+        error: (error) => { console.error(error);}
+      }
+    );
+
     this.toggleLogin();
+
   }
 
 }

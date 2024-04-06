@@ -17,4 +17,11 @@ export class HttpService {
       data
     )
   }
+
+  signupUser(data:User){
+    return this.http.post(
+      `${site}/users/signup`,
+      data
+    )
+  }
 }

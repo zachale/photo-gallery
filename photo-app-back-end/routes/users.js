@@ -36,6 +36,10 @@ router.post("/login", async (req,res) => {
 
 router.post("/signup", async (req, res) => {
 
+  if(req.body.name == null || req.body.password == null){
+    res.send({message: "Username or Password cannot be empty"})
+  }
+
   try {
     const hashedPass = await bcrypt.hash(req.body.password, 10);
     const user = new User({name:req.body.name, password:hashedPass});
