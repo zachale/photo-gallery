@@ -1,6 +1,6 @@
 import { Component, Input, Output, input } from '@angular/core';
 import { Photo } from '../interfaces/photo';
-import { EventEmitter } from 'stream';
+import { EventEmitter } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
 
@@ -15,18 +15,12 @@ import { FormsModule, NgModel } from '@angular/forms';
   styleUrl: './photo-info.component.css'
 })
 export class PhotoInfoComponent {
-  @Input() inputPhoto?:Photo = {
-    "location":"",
-    "id":-1,
-    "path":"",
-    "dateUploaded":""
-  };
-  @Output() escapeRequest = new EventEmitter();
+  @Input() inputPhoto?:Photo;
+  @Output() escapeRequest = new EventEmitter<boolean>();
 
 
   returnFromPhoto(photo: Photo | undefined): void {
-    this.inputPhoto = undefined;
-    this.escapeRequest.emit("true")
+    this.escapeRequest.emit(true);
   }
 
   canEdit?: Boolean;

@@ -1,14 +1,14 @@
-<div *ngIf="selectedPhoto" class="enlarged-photo">
+<div *ngIf="inputPhoto" class="enlarged-photo">
 
-  <img class="selected-photo" src={{selectedPhoto.path}}>
+  <img class="selected-photo" src={{inputPhoto.data}}>
 
   <div class="photo-info">
     <div class="photo-info-header">
       <h2>{{inputPhoto.location}}</h2>
-      <h3>{{inputPhoto.dateUploaded}}</h3>
+      <h3>{{inputPhoto.dateTaken}}</h3>
       <div *ngIf="canEdit">
         <input id="location" [(ngModel)]="inputPhoto.location" placeholder="location">
-        <input id="dateUploaded" [(ngModel)]="inputPhoto.dateUploaded" placeholder="dateUploaded">
+        <input id="dateTaken" [(ngModel)]="inputPhoto.dateTaken" placeholder="dateTaken">
       </div>
       
     </div>

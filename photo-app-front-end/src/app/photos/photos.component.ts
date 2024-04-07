@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { PHOTOS } from '../mock-photos';
 import { NgFor, NgIf } from '@angular/common';
 import { PhotoInfoComponent } from '../photo-info/photo-info.component';
+import { UploadPanelComponent } from '../upload-panel/upload-panel.component';
 
 @Component({
   selector: 'app-photos',
@@ -12,7 +13,8 @@ import { PhotoInfoComponent } from '../photo-info/photo-info.component';
     FormsModule,
     NgFor,
     NgIf,
-    PhotoInfoComponent
+    PhotoInfoComponent,
+    UploadPanelComponent
   ],
   templateUrl: './photos.component.html',
   styleUrl: './photos.component.css'
@@ -26,9 +28,13 @@ export class PhotosComponent {
     console.log("clicked!");
   }
 
-  returnFromPhoto(event: Event){
+  returnFromPhoto(event:boolean){
     console.log(event);
     this.selectedPhoto = undefined;
+  }
+
+  addPhoto(event: Photo){
+    this.photos.push(event);
   }
 
 

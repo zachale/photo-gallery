@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpService } from '../services/http.service';
 import { User } from '../interfaces/user';
@@ -14,6 +14,8 @@ import { LoginResponse } from '../interfaces/login';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
+  @Output() successfulLogin = new EventEmitter<User>;
 
   constructor(private httpService: HttpService) {}
 
@@ -36,8 +38,16 @@ export class LoginComponent {
     const user: User = {"name":this.username.value, "password":this.password.value}
 
     this.httpService.validateUser(user).subscribe({
-        next: (response) => {this.response = response as LoginResponse},
-        error: (error) => { console.error(error);}
+        next: (response) => {
+            if(response){
+              this.response = response as LoginResponse
+              this.successfulLogin.emit(user);
+            }
+          },
+        error: (error) => { 
+          console.error(error);
+          this.successfulLogin.emit(undefined);
+        }
       }
     );
 

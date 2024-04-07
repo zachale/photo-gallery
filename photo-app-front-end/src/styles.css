@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+body{
+  background-color: rgb(34, 40, 49);
+  color: rgb(238, 238, 238);
+
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}

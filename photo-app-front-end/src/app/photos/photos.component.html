@@ -3,13 +3,16 @@
 
 <div *ngIf="!selectedPhoto" class="photos">
   <div class="photo" *ngFor="let photo of photos" (click)="onSelect(photo)" 
-    style="background-image: url({{photo.path}})"
+    style="background-image: url({{photo.data}})"
     [class.selected]="photo === selectedPhoto">
     <!-- <div>
       <h3 class="location">{{photo.location}}</h3>
     </div> -->
   </div>
+
+  <app-upload-panel (newPhotoAdded)="addPhoto($event)"></app-upload-panel>
+
 </div>
 
-<app-photo-info *ngIf="selectedPhoto" (requestEscapeEvent)="returnFromPhoto($event)" [inputPhoto]="selectedPhoto"></app-photo-info>
+<app-photo-info (escapeRequest)="returnFromPhoto($event)" [inputPhoto]="selectedPhoto"></app-photo-info>
 

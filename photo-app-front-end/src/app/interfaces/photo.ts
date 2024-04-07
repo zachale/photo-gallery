@@ -1,6 +1,7 @@
 export interface Photo {
-  id: number;
   location: string;
-  dateUploaded: string;
-  path: string;
+  dateTaken: string;
+  name?: string;
+  data: string;
+  user: string;
 }
