@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from  '@angular/common/http';
 import { User } from '../interfaces/user';
 import { Photo } from '../interfaces/photo';
+import { response } from 'express';
 
 
 const site = "http://localhost:3000";
@@ -13,11 +14,30 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
+  httpOptions ={
+    observe: "observe",
+    headers: new Headers(), 
+    withCredentials: true 
+  }
+  
+
   validateUser(data: User){
-    return this.http.post(
+    const response = this.http.post(
       `${site}/users/login`,
-      data
+      data,
+      {
+        observe: "response"
+      }
     )
+
+    response.subscribe({next:
+      (response: any) => {
+        const cookieHeader = response.headers.get("set-cookie");
+        console.log(cookieHeader)
+      }
+    })
+
+    return response; 
   }
 
   signupUser(data: User){
@@ -28,10 +48,12 @@ export class HttpService {
   }
 
   uploadPhoto(data: Photo){
-    return this.http.post(
+    const request = this.http.post(
       `${site}/photos/upload`,
       data
     );
+    
+    return request;
   }
 
   getPhotos(user: string){

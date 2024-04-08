@@ -5,6 +5,7 @@ const connectDB = require("./config/dbConn");
 
 const userRouter = require("./routes/users");
 const photoRouter = require("./routes/photos");
+const cookiesParser = require('cookie-parser');
 
 
 require('dotenv').config();
@@ -12,7 +13,9 @@ require('dotenv').config();
 connectDB();
 
 const app = express();
+app.use(cookiesParser());
 app.use(express.json({limit: '16mb'}));
+
 
 const port = 3000;
 

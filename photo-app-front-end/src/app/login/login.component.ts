@@ -41,7 +41,7 @@ export class LoginComponent {
     this.httpService.validateUser(user).subscribe({
         next: (response) => {
             if(response){
-              this.response = response as LoginResponse
+              this.response = response.body as LoginResponse
               this.currentUserService.setCurrentUser(user);
               this.successfulLogin.emit(true);
             }
