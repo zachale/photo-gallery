@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PhotosComponent } from './photos/photos.component';
 import { LoginComponent } from './login/login.component';
-import { NgIf } from '@angular/common';
+import { CurrencyPipe, NgIf } from '@angular/common';
 import { User } from './interfaces/user';
 import { HttpService } from './services/http.service';
 import { Photo } from './interfaces/photo';
 import { photosResponse } from './interfaces/photosResponse';
+import { CurrentUserService } from './services/current-user.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ import { photosResponse } from './interfaces/photosResponse';
 })
 export class AppComponent {
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private currentUserService: CurrentUserService) {}
 
   title = 'Gallery';
 
@@ -27,9 +28,9 @@ export class AppComponent {
   photos: Photo [] = [];
 
 
-  onLogin(event: User){
+  onLogin(event: boolean){
     if(event){
-      this.user = event;
+      this.user = this.currentUserService.getCurrentUser();
       if(this.user.name){
         this.httpService.getPhotos(this.user.name).subscribe({
             next: (response)=> {

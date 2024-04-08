@@ -5,6 +5,7 @@ import { FormControl, FormsModule, ReactiveFormsModule }   from '@angular/forms'
 import { HttpService } from '../services/http.service';
 import { User } from '../interfaces/user';
 import { LoginResponse } from '../interfaces/login';
+import { CurrentUserService } from '../services/current-user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +16,9 @@ import { LoginResponse } from '../interfaces/login';
 })
 export class LoginComponent {
 
-  @Output() successfulLogin = new EventEmitter<User>;
+  @Output() successfulLogin = new EventEmitter<boolean>;
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private currentUserService: CurrentUserService) {}
 
   username = new FormControl('');
   password = new FormControl('');
@@ -41,12 +42,13 @@ export class LoginComponent {
         next: (response) => {
             if(response){
               this.response = response as LoginResponse
-              this.successfulLogin.emit(user);
+              this.currentUserService.setCurrentUser(user);
+              this.successfulLogin.emit(true);
             }
           },
         error: (error) => { 
           console.error(error);
-          this.successfulLogin.emit(undefined);
+          this.successfulLogin.emit(false);
         }
       }
     );

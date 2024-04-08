@@ -1,4 +1,4 @@
 
 <h1 class="title">{{title}}</h1>
 <app-login *ngIf="!showPhotos" (successfulLogin)="onLogin($event)"></app-login>
-<app-photos *ngIf="showPhotos" [photos]="photos"></app-photos>
+<app-photos *ngIf="showPhotos" [photos]="photos" ></app-photos>

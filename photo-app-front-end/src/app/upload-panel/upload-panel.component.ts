@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import { Photo } from '../interfaces/photo';
 import { NgIf } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CurrentUserService } from '../services/current-user.service';
 
 @Component({
   selector: 'app-upload-panel',
@@ -14,7 +15,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class UploadPanelComponent { 
   @Output() newPhotoAdded = new EventEmitter<Photo>();
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private currentUserService: CurrentUserService) {}
 
   date = new FormControl('');
   location = new FormControl('');
@@ -59,20 +60,17 @@ export class UploadPanelComponent {
   }
 
 
-  // display photo that user uploaded
-  // take info from user in a form
-  // send to server to be uploaded
-  // (implement jwt)
-
   onSubmitUpload(){
 
     // Build a photo from the given information
     const photo: Photo = {
-      user: "zach",
+      user: this.currentUserService.getCurrentUser().name as string,
       location: this.location.value as string,
       dateTaken: this.date.value as string,
       data: this.imagePath as string,
     }
+    
+    console.log(photo)
 
     const observable = this.httpService.uploadPhoto(photo);
     observable.subscribe({
