@@ -13,7 +13,7 @@ router.post("/upload", (req,res) => {
 
   const photo = new Photo(req.body);
 
-  // photo.save()
+  photo.save()
 
   console.log(photo);
 
@@ -22,21 +22,63 @@ router.post("/upload", (req,res) => {
 
 router.get("/get", async (req,res) => {
 
-  const user = req.query.name
+  const user = req.query.user
 
   if(user==null){
-    res.send("error")
+    res.send({"msg":"error"})
   }
  
   const photos = await Photo.find({user:user})
-  console.log(photo)
-  if(photo==null){
-    res.send("error")
+  if(photos==null){
+    res.send({'msg':'error'});
   } else {
     res.send({"photos":photos});
   }
 
   
+});
+
+router.post("/update", async (req,res) => {
+
+  if(req.body._id){
+    try{
+      const photo = await Photo.findOneAndReplace({_id: req.body._id}, req.body);
+
+      if(photo == undefined){
+        throw Error("Photo was not found")
+      }
+
+      console.log(photo);
+    } catch (error){
+      console.error(error);
+      res.status(500).send({"msg": error});
+    }
+    res.send({"msg":"OK"});
+  } else {
+    res.send({"msg":"No Id Found"});
+  }
+
+});
+
+router.post("/delete", async (req,res) => {
+
+  if(req.body._id){
+    try{
+      const photo = await Photo.findOneAndDelete({_id: req.body._id}, req.body);
+
+      if(photo == undefined){
+        throw Error("Photo was not found")
+      }
+
+      console.log(photo);
+    } catch (error){
+      console.error(error);
+      res.status(500).send({"msg": error});
+    }
+    res.send({"msg":"OK"});
+  } else {
+    res.send({"msg":"No Id Found"});
+  }
 });
 
 module.exports = router;

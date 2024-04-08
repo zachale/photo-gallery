@@ -4,4 +4,5 @@ export interface Photo {
   name?: string;
   data: string;
   user: string;
+  _id?: string;
 }

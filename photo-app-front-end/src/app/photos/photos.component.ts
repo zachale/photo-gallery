@@ -1,10 +1,10 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, Input, NgModule } from '@angular/core';
 import { Photo } from '../interfaces/photo';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
-import { PHOTOS } from '../mock-photos';
 import { NgFor, NgIf } from '@angular/common';
 import { PhotoInfoComponent } from '../photo-info/photo-info.component';
 import { UploadPanelComponent } from '../upload-panel/upload-panel.component';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-photos',
@@ -20,7 +20,8 @@ import { UploadPanelComponent } from '../upload-panel/upload-panel.component';
   styleUrl: './photos.component.css'
 })
 export class PhotosComponent {
-  photos = PHOTOS;
+
+  @Input() photos: Photo [] = [];
 
   selectedPhoto?: Photo;
   onSelect(photo: Photo): void {
@@ -35,6 +36,10 @@ export class PhotosComponent {
 
   addPhoto(event: Photo){
     this.photos.push(event);
+  }
+
+  deletePhoto(event: Photo){
+    _.remove(this.photos, (element: Photo) => {return element._id == event._id})
   }
 
 

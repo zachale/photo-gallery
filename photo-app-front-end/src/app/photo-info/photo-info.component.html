@@ -14,9 +14,9 @@
     </div>
     <div class="photo-info-footer">
       <button (click)="returnFromPhoto(inputPhoto)">To Gallery</button>
-      <button *ngIf="canEdit" (click)="toggleEdit()">Save</button>
+      <button *ngIf="canEdit" (click)="saveEdit()">Save</button>
       <button *ngIf="!canEdit" (click)="toggleEdit()">Edit</button>
-      <button (click)="returnFromPhoto(inputPhoto)">Delete</button>
+      <button (click)="deletePhoto()">Delete</button>
     </div>
   </div>
 

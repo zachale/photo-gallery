@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from  '@angular/common/http';
 import { User } from '../interfaces/user';
 import { Photo } from '../interfaces/photo';
-import  sizeof from 'object-sizeof';
 
 
 const site = "http://localhost:3000";
@@ -37,7 +36,21 @@ export class HttpService {
 
   getPhotos(user: string){
     return this.http.get(
-      `${site}/photos/upload?user=${user}`,
+      `${site}/photos/get?user=${user}`,
+    );
+  }
+
+  deletePhoto(photo: Photo){
+    return this.http.post(
+      `${site}/photos/delete`,
+      photo
+    );
+  }
+
+  updatePhoto(photo: Photo){
+    return this.http.post(
+      `${site}/photos/update`,
+      photo
     );
   }
 }
