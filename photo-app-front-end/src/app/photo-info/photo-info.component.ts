@@ -8,9 +8,9 @@ import { HttpService } from '../services/http.service';
 /**
  * The photo info component is responsible for showcasing one selected photo
  * This includes:
- * -> Taking a selected photo as input and displaying it
+ * -> Taking a selected photo as input from its parent and displaying it
  * -> Fascilitating Updating and Deletion of photos
- * -> Emiting requests to add / delete photos
+ * -> Emiting output requests to add / delete photos
 */
 @Component({
   selector: 'app-photo-info',
@@ -44,7 +44,7 @@ export class PhotoInfoComponent {
     this.escapeRequest.emit(true);
     if(photo){
       this.httpService.deletePhoto(photo).subscribe({
-        next: (response) => {this.deleteRequest.emit(photo); console.log(photo)},
+        next: (response) => {this.deleteRequest.emit(photo)},
         error: (err) => {console.error(err)}
       });
       this.toggleEdit();
@@ -60,9 +60,9 @@ export class PhotoInfoComponent {
     
     if(this.inputPhoto){
       this.httpService.updatePhoto(this.inputPhoto).subscribe({
-        next: (response) => { console.log(response)}
+        next: (response) => { this.toggleEdit() },
+        error: (err) => { console.error(err)}
       });
-      this.toggleEdit();
     } else {
       console.error("photo does not exist")
     }

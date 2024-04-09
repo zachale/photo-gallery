@@ -24,7 +24,6 @@ export class AuthTokenService {
   //checks whether there is a current session saved
   isLoggedIn(){
     const token = localStorage.getItem('token');
-    console.log(token);
     if(token === ''){
       return false;
     } else {

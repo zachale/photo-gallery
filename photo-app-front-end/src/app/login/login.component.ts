@@ -6,6 +6,7 @@ import { HttpService } from '../services/http.service';
 import { User } from '../interfaces/user';
 import { LoginResponse } from '../interfaces/login';
 import { CurrentUserService } from '../services/current-user.service';
+import { AuthTokenService } from '../services/auth-token.service';
 
 /**
  * The login component is responsible for logging or signing in a user
@@ -24,8 +25,7 @@ export class LoginComponent {
 
   @Output() successfulLogin = new EventEmitter<boolean>;
 
-  constructor(private httpService: HttpService, private currentUserService: CurrentUserService) {}
-
+  constructor(private httpService: HttpService, private currentUserService: CurrentUserService, private tokenHandler: AuthTokenService ){}
   //form controls to get input from user
   username = new FormControl('');
   password = new FormControl('');
@@ -50,6 +50,7 @@ export class LoginComponent {
         next: (response) => {
             if(response){
               this.response = response as LoginResponse
+              this.tokenHandler.saveToken(this.response.token);
               this.currentUserService.setCurrentUser(user);
               this.successfulLogin.emit(true);
             }

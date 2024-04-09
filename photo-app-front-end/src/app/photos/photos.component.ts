@@ -51,7 +51,6 @@ export class PhotosComponent {
   }
 
   deletePhoto(event: Photo){
-    console.log(this.photos);
     _.remove(this.photos, (element: Photo) => {return element._id == event._id})
   }
 

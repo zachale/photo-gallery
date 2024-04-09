@@ -5,9 +5,6 @@
   <div class="photo" *ngFor="let photo of photos" (click)="onSelect(photo)" 
     style="background-image: url({{photo.data}})"
     [class.selected]="photo === selectedPhoto">
-    <!-- <div>
-      <h3 class="location">{{photo.location}}</h3>
-    </div> -->
   </div>
 
   <app-upload-panel (newPhotoAdded)="addPhoto($event)"></app-upload-panel>

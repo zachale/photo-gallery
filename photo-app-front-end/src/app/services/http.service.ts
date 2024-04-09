@@ -26,21 +26,10 @@ export class HttpService {
   
   //This validates a user trying to log in
   validateUser(data: User){
-
-    const response = this.http.post(
+    return this.http.post(
       `${site}/users/login`,
       data
-    )
-    
-    //save the token that's returned
-    response.subscribe({next:
-      (response: any) => {
-        const token = response.token;
-        this.tokenHandler.saveToken(token);
-      }
-    })
-
-    return response; 
+    );
   }
 
 
