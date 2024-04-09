@@ -9,7 +9,7 @@ import { Photo } from './interfaces/photo';
 import { photosResponse } from './interfaces/photosResponse';
 import { CurrentUserService } from './services/current-user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthTokenServiceService } from './services/auth-token-service.service';
+import { AuthTokenService } from './services/auth-token.service';
 
 /**
  * The app component oversees the rest of the sites funcionality.
@@ -27,7 +27,7 @@ import { AuthTokenServiceService } from './services/auth-token-service.service';
 })
 export class AppComponent {
 
-  constructor(private httpService: HttpService, private currentUserService: CurrentUserService, private tokenHandler: AuthTokenServiceService) {}
+  constructor(private httpService: HttpService, private currentUserService: CurrentUserService, private tokenHandler: AuthTokenService) {}
 
   title = 'Gallery';
 

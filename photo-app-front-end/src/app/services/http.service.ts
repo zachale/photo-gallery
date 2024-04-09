@@ -3,7 +3,7 @@ import { HTTP_INTERCEPTORS, HttpClient } from  '@angular/common/http';
 import { User } from '../interfaces/user';
 import { Photo } from '../interfaces/photo';
 import { response } from 'express';
-import { AuthTokenServiceService } from './auth-token-service.service';
+import { AuthTokenService } from './auth-token.service';
 import { AuthInterceptorService } from './auth-interceptor.service';
 
 
@@ -21,7 +21,7 @@ const site = "http://localhost:3000";
 })
 export class HttpService {
 
-  constructor(private http: HttpClient, private tokenHandler: AuthTokenServiceService) { }
+  constructor(private http: HttpClient, private tokenHandler: AuthTokenService) { }
   
   
   //This validates a user trying to log in

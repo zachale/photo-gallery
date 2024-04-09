@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthTokenServiceService } from './auth-token-service.service';
+import { AuthTokenService } from './auth-token.service';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthInterceptorService implements HttpInterceptor{
 
-  constructor(private tokenHandler: AuthTokenServiceService) { }
+  constructor(private tokenHandler: AuthTokenService) { }
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
