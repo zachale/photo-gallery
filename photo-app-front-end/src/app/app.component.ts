@@ -11,6 +11,13 @@ import { CurrentUserService } from './services/current-user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthTokenServiceService } from './services/auth-token-service.service';
 
+/**
+ * The app component oversees the rest of the sites funcionality.
+ * It also has some responsibilities for itself.
+ * -> Checking if a user's session is in progress
+ * -> Ending a user's session
+ * -> Sourcing a user's photos on succsessful log in
+*/
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -25,11 +32,13 @@ export class AppComponent {
   title = 'Gallery';
 
   user?: User;
+
+  //This boolean controls when users photos are displayed
   showPhotos: boolean = false;
 
   photos: Photo [] = [];
 
-
+  // Simple check to see if a user session is already stored
   ngOnInit() {
     if(this.tokenHandler.isLoggedIn()){
       this.getPhotos();
@@ -38,11 +47,13 @@ export class AppComponent {
     }
   }
 
+
   logOut(){
     this.tokenHandler.logOut();
     this.showPhotos = false;
   }
 
+  // This method processes a given log in event from the login component
   onLogin(event: boolean){
     if(event){
       this.user = this.currentUserService.getCurrentUser();
@@ -54,6 +65,7 @@ export class AppComponent {
     }
   }
 
+  // This method sources a users photos based on the given user name and JWT
   getPhotos(){
     const request = this.httpService.getPhotos(this.currentUserService.getCurrentUser().name as string).subscribe({
       next: (response)=> {

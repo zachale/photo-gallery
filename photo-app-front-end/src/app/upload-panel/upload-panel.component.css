@@ -110,5 +110,6 @@ input{
   display: block;
   margin:1vw;
   padding:2%;
+  width: 100%;
   border-radius: 1vh;
 }

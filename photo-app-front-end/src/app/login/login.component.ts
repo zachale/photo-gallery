@@ -6,8 +6,13 @@ import { HttpService } from '../services/http.service';
 import { User } from '../interfaces/user';
 import { LoginResponse } from '../interfaces/login';
 import { CurrentUserService } from '../services/current-user.service';
-import { AuthTokenServiceService } from '../services/auth-token-service.service';
 
+/**
+ * The login component is responsible for logging or signing in a user
+ * This includes:
+ * -> Taking user input and validating it with the back end server
+ * -> Emiting whether a log in was successful or not
+*/
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -21,13 +26,14 @@ export class LoginComponent {
 
   constructor(private httpService: HttpService, private currentUserService: CurrentUserService) {}
 
+  //form controls to get input from user
   username = new FormControl('');
   password = new FormControl('');
 
   response?: LoginResponse;
 
-
   isLoggingIn?: Boolean = true;
+
   toggleSignup(){
     this.isLoggingIn = false;
   }
@@ -39,10 +45,11 @@ export class LoginComponent {
   async login(){
     const user: User = {"name":this.username.value, "password":this.password.value}
 
+    //requests a log in and acts upon a valid log in
     this.httpService.validateUser(user).subscribe({
         next: (response) => {
             if(response){
-              this.response = response.body as LoginResponse
+              this.response = response as LoginResponse
               this.currentUserService.setCurrentUser(user);
               this.successfulLogin.emit(true);
             }

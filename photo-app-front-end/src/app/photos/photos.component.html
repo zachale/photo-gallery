@@ -1,5 +1,5 @@
 
-<h2>Your Photos</h2>
+<h2 style="text-align: center;">{{username}}'s photos</h2>
 
 <div *ngIf="!selectedPhoto" class="photos">
   <div class="photo" *ngFor="let photo of photos" (click)="onSelect(photo)" 

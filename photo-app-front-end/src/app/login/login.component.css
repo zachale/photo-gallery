@@ -15,12 +15,12 @@ button{
 }
 .question{
   text-align: center;
-  color: black;
+  color: white;
   transition: color 0.3s ease-in-out;
 }
 .question:hover{
   cursor: pointer;
-  color: blue;
+  color: grey;
 }
 
 .container{
@@ -28,4 +28,9 @@ button{
   height: fit-content;
   display: flex;
   justify-content: center;
+}
+
+.error{
+  text-align: center;
+  color: rgb(255, 181, 152);
 }

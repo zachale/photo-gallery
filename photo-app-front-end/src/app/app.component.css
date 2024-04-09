@@ -4,3 +4,13 @@ div{
 
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.logout{
+  text-align: center;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+.logout:hover{
+  cursor: pointer;
+  color: grey;
+}

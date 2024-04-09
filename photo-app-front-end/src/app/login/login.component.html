@@ -14,9 +14,7 @@
       <button *ngIf="!isLoggingIn"  (click)="signup()" type="submit">signup</button>
       <p class="question" *ngIf="!isLoggingIn" (click)="toggleLogin()">already have an account?</p>
     </div>
+    <p *ngIf="response" class="error">{{response.msg}}</p>
   </form>
-
-  <!-- <div *ngIf="response">{{response.message}}</div> -->
-
     
 </div>

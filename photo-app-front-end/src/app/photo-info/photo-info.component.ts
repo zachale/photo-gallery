@@ -5,7 +5,13 @@ import { NgIf } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
 import { HttpService } from '../services/http.service';
 
-
+/**
+ * The photo info component is responsible for showcasing one selected photo
+ * This includes:
+ * -> Taking a selected photo as input and displaying it
+ * -> Fascilitating Updating and Deletion of photos
+ * -> Emiting requests to add / delete photos
+*/
 @Component({
   selector: 'app-photo-info',
   standalone: true,
@@ -22,7 +28,9 @@ export class PhotoInfoComponent {
 
   constructor(private httpService: HttpService) {}
 
+  //requests that the page returns from photo-info view to the photos list
   returnFromPhoto(photo: Photo | undefined): void {
+    this.canEdit = false;
     this.escapeRequest.emit(true);
   }
 
@@ -32,11 +40,12 @@ export class PhotoInfoComponent {
   }
 
   deletePhoto(){
-    this.deleteRequest.emit(this.inputPhoto);
+    const photo = this.inputPhoto;
     this.escapeRequest.emit(true);
-    if(this.inputPhoto){
-      this.httpService.deletePhoto(this.inputPhoto).subscribe({
-        next: (response) => {console.log(response)}
+    if(photo){
+      this.httpService.deletePhoto(photo).subscribe({
+        next: (response) => {this.deleteRequest.emit(photo); console.log(photo)},
+        error: (err) => {console.error(err)}
       });
       this.toggleEdit();
     } else {
@@ -46,6 +55,7 @@ export class PhotoInfoComponent {
     
   }
 
+  //Saves an edit made on a photo to the server
   saveEdit(){
     
     if(this.inputPhoto){

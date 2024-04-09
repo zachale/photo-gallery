@@ -1,18 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const cookiesParser = require('cookie-parser');
-
 const Photo = require('../models/photo')
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
 
 router.use(cors());
  
+//custom middle ware that validates JWT tokens
 router.use(authenticateToken);
 
-// router.use();
-// router.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
-
+// takes an input photo and uploads it to mongo db
 router.post("/upload", (req,res) => {
   try{
     const photo = new Photo(req.body);
@@ -26,13 +23,14 @@ router.post("/upload", (req,res) => {
   }
 });
 
+// given a user through a get request, it returns a list of all of the users photos
 router.get("/get", async (req,res) => {
 
   try{
     const user = req.query.user
 
     if(user==null){
-      res.send({"msg":"user nnot found"});
+      res.send({"msg":"user not found"});
     }
   
     const photos = await Photo.find({user:user});
@@ -48,6 +46,7 @@ router.get("/get", async (req,res) => {
   
 });
 
+//Given a photo, it replaces a photo in the DB with the same id
 router.post("/update", async (req,res) => {
 
   if(req.body._id){
@@ -70,6 +69,7 @@ router.post("/update", async (req,res) => {
 
 });
 
+//Given a photo, it finds its counter part in the DB and then deletes it
 router.post("/delete", async (req,res) => {
 
   if(req.body._id){
@@ -91,6 +91,7 @@ router.post("/delete", async (req,res) => {
   }
 });
 
+//This middle ware validates the json token given in the authentication header
 function authenticateToken(req,res,next){
 
   const token = req.headers.authorization.split(" ")[1];

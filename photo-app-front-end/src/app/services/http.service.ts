@@ -9,38 +9,40 @@ import { AuthInterceptorService } from './auth-interceptor.service';
 
 const site = "http://localhost:3000";
 
+
+/**
+ * The http service is responsible for handling all http requests made by the app
+ * This includes:
+ * -> Creating, Updating, and Deleting photos
+ * -> logging in or signing up a user
+*/
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
 
   constructor(private http: HttpClient, private tokenHandler: AuthTokenServiceService) { }
-
-  httpOptions ={
-    observe: "observe",
-    headers: new Headers(), 
-    withCredentials: true 
-  }
   
-
+  
+  //This validates a user trying to log in
   validateUser(data: User){
+
     const response = this.http.post(
       `${site}/users/login`,
-      data,
-      {
-        observe: "response"
-      }
+      data
     )
-
+    
+    //save the token that's returned
     response.subscribe({next:
       (response: any) => {
-        const token = response.body.token;
+        const token = response.token;
         this.tokenHandler.saveToken(token);
       }
     })
 
     return response; 
   }
+
 
   signupUser(data: User){
     return this.http.post(

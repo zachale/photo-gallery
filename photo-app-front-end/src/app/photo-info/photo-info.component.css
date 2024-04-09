@@ -12,7 +12,7 @@
 
 .photo-info{
   margin-left: 2vw;
-  border: solid black 2px;
+  border: 2px rgb(219, 227, 242) solid;
   border-radius: 2vw;
   padding:1vw;
 }
