@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from  '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from  '@angular/common/http';
 import { User } from '../interfaces/user';
 import { Photo } from '../interfaces/photo';
 import { response } from 'express';
+import { AuthTokenServiceService } from './auth-token-service.service';
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 
 const site = "http://localhost:3000";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HttpService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private tokenHandler: AuthTokenServiceService) { }
 
   httpOptions ={
     observe: "observe",
@@ -32,8 +34,8 @@ export class HttpService {
 
     response.subscribe({next:
       (response: any) => {
-        const cookieHeader = response.headers.get("set-cookie");
-        console.log(cookieHeader)
+        const token = response.body.token;
+        this.tokenHandler.saveToken(token);
       }
     })
 
@@ -48,12 +50,10 @@ export class HttpService {
   }
 
   uploadPhoto(data: Photo){
-    const request = this.http.post(
+    return this.http.post(
       `${site}/photos/upload`,
       data
-    );
-    
-    return request;
+    );;
   }
 
   getPhotos(user: string){

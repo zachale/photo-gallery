@@ -12,10 +12,9 @@ router.post("/login", async (req,res) => {
   let success = false;
 
   const user = await User.findOne({name:req.body.name});
-  console.log(user);
 
   if(user == null){
-    return res.send({success: false, message:"User does not exit"});
+    return res.send({success: false, message:"User does not exist"});
   }
 
   try{
@@ -31,9 +30,7 @@ router.post("/login", async (req,res) => {
   if(success){
     const accessToken = jwt.sign(req.body, process.env.ACCESS_TOKEN_SECRET);
 
-    return res.cookie("access_token", accessToken, {
-      // httpOnly: true,
-    }).send({ success: true });
+    return res.send({ success: true, token: accessToken });
   } else {
     return res.json({success: false});
   }
@@ -43,8 +40,16 @@ router.post("/login", async (req,res) => {
 
 router.post("/signup", async (req, res) => {
 
+  
+
   if(req.body.name == null || req.body.password == null){
     res.send({message: "Username or Password cannot be empty"});
+  }
+
+  const user = await User.findOne({name: req.body.name});
+
+  if (user){
+    return res.status(401).send({message: "User already exists!"});
   }
 
   try {
@@ -53,14 +58,11 @@ router.post("/signup", async (req, res) => {
     await user.save();
   } catch (error) {
     console.error(error);
-    res.status(500).send();
+    return res.status(500).send({message: "something went wrong"});
   }
 
   const accessToken = jwt.sign(req.body, process.env.ACCESS_TOKEN_SECRET);
-
-  res.json({ success: true }).cookie("access_token", accessToken, {
-    httpOnly: true,
-  });
+  return res.json({ success: true, token: accessToken});
 
 });
 

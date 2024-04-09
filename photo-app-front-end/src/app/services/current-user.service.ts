@@ -8,13 +8,12 @@ export class CurrentUserService {
 
   constructor() { }
 
-  currentUser?: User;
-
   setCurrentUser(user: User){
-    this.currentUser = user;
+    localStorage.setItem('user', user.name as string);
   }
 
   getCurrentUser(): User{
-    return this.currentUser as User;
+    const name = localStorage.getItem('user');
+    return {name: name, password: ''} as User;
   }
 }

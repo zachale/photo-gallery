@@ -4,8 +4,8 @@ const cookiesParser = require('cookie-parser');
 
 const Photo = require('../models/photo')
 const cors = require("cors");
+const jwt = require('jsonwebtoken');
 
-router.use(cookiesParser());
 router.use(cors());
  
 router.use(authenticateToken);
@@ -14,30 +14,37 @@ router.use(authenticateToken);
 // router.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 router.post("/upload", (req,res) => {
-  const photo = new Photo(req.body);
+  try{
+    const photo = new Photo(req.body);
 
-  photo.save();
+    photo.save();
 
-  console.log(photo);
-
-  res.send("success");
+    res.send({'msg': 'success'});
+  } catch (err){
+    console.log(err);
+    res.status(500).send({'err':err});
+  }
 });
 
 router.get("/get", async (req,res) => {
 
-  const user = req.query.user
+  try{
+    const user = req.query.user
 
-  if(user==null){
-    res.send({"msg":"error"})
+    if(user==null){
+      res.send({"msg":"user nnot found"});
+    }
+  
+    const photos = await Photo.find({user:user});
+    if(photos==null){
+      res.send({'msg':'error'});
+    } else {
+      res.send({"photos":photos});
+    }
+  } catch (err){
+    console.log(err);
+    res.status(500).send({'err':err});
   }
- 
-  const photos = await Photo.find({user:user})
-  if(photos==null){
-    res.send({'msg':'error'});
-  } else {
-    res.send({"photos":photos});
-  }
-
   
 });
 
@@ -48,7 +55,7 @@ router.post("/update", async (req,res) => {
       const photo = await Photo.findOneAndReplace({_id: req.body._id}, req.body);
 
       if(photo == undefined){
-        throw Error("Photo was not found")
+        throw Error("Photo was not found");
       }
 
       console.log(photo);
@@ -70,7 +77,7 @@ router.post("/delete", async (req,res) => {
       const photo = await Photo.findOneAndDelete({_id: req.body._id}, req.body);
 
       if(photo == undefined){
-        throw Error("Photo was not found")
+        throw Error("Photo was not found");
       }
 
       console.log(photo);
@@ -86,19 +93,17 @@ router.post("/delete", async (req,res) => {
 
 function authenticateToken(req,res,next){
 
-  const token = req.cookies.access_token;
-  console.log(token);
+  const token = req.headers.authorization.split(" ")[1];
   if(token == null){
     return res.status(401).send();
   }
 
-  jwt.verify(token, process.env.ACESS_TOKEN_SECRET, (error,user) => {
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error,user) => {
     if (error){ 
       console.log(error)
       return res.status(403).send();
     } else {
       req.user = user;
-      console.log("authenticated!")
       next();
     }
   })

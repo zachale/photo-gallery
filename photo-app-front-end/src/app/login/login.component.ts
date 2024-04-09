@@ -6,6 +6,7 @@ import { HttpService } from '../services/http.service';
 import { User } from '../interfaces/user';
 import { LoginResponse } from '../interfaces/login';
 import { CurrentUserService } from '../services/current-user.service';
+import { AuthTokenServiceService } from '../services/auth-token-service.service';
 
 @Component({
   selector: 'app-login',
