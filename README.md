@@ -4,8 +4,9 @@
 
 This is a full-stack photo gallery app built on the MEAN stack.  
 You can sign up or log in, as well as upload, delete, and edit photos!  
-This gallery app was built as a single page, with no routing necessary. 
+This gallery app was built as a single page, with no routing necessary.  
 Any image files can be uploaded, png, jpg, webp, etc.  
+
 
 
 ## Getting Started
