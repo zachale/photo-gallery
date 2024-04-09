@@ -18,8 +18,8 @@ To get started, clone this repository.
 Then run `npm install` in both the back and front end directories.
 Create a .env file in the back end directory and make sure to include a mongo db URI as DATABASE_URI
 and a secret access token as ACCESS_TOKEN_SECRET.
-Run the server with node server.js in the back end directory.
-Run the front end with ng serve in the front end. 
+Run the server with `node server.js` in the back end directory.
+Run the front end with `ng serve` in the front end. 
 
 Voila! Enjoy the photo gallery application.
 
