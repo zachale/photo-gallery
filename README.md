@@ -1,4 +1,4 @@
-# Full Stack Photo App
+# Pixy: Full Stack Photo App
 
 ![alt text](image.png)
 
